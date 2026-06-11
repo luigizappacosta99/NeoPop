@@ -64,8 +64,8 @@ double InterpolatedNoise(int i, double x, double y, int seed) {
 
 double ValueNoise_2D_perlin(double x, double y, int numOctaves, double persistence, int seed) {
   double total = 0.0;
-  double frequency = 0.1;
-  double amplitude = 1.0;
+  double frequency = 0.02;
+  double amplitude = 2.0;
   double amplitudeSum = 0.0;
 
   for (int i = 0; i < numOctaves; ++i) {

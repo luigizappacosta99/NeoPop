@@ -11,45 +11,43 @@ private:
     int y;
     int h;
     bool is_passable;
-    std::string biome;
-    
-    double fertility;
-    double humidity;
-    double temperature;
+
+    float fertility;
+    float usage;
 
     int animal_population;
     int megafauna_population;
+
 public:
     pixel();
-    pixel(int x, int y, int h, bool is_passable, std::string biome, double fertility, double humidity, double temperature);
+    pixel(int x, int y, int h, float fertility);
     ~pixel();
 
     //std::vector<pixel*> getNeighbors();
 
     //Functions for loop
-    //void update_animal_population();
+    //void update_usage();
+    //void update_animalPopulation();
+    //void update_megafaunaPopulation();
 
     // Getters
     int getX() const;
     int getY() const;
     int getHeight() const;
     bool isPassable() const;
-    std::string getBiome() const;
-    double getFertility() const;
-    double getHumidity() const;
-    double getTemperature() const;
+    float getFertility() const;
+    float getUsage() const;
     int getAnimalPopulation() const;
     int getMegafaunaPopulation() const;
 
     //setters
     void setHeight(int height);
     void setPassable(bool passable);
-    void setBiome(const std::string& new_biome);
-    void setFertility(double fertility);
-    void setHumidity(double humidity);
-    void setTemperature(double temperature);
-    void setAnimalPopulation(int population);
-    void setMegafaunaPopulation(int population);
+    void setFertility(float fert);
+    void setUsage(float us);
+    //void setAnimalPopulation;
+    //void setMegafaunaPopulation;
+
 };
 
 #endif // PIXEL_H

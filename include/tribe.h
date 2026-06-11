@@ -15,7 +15,7 @@ public:
     tribe(int x, int y, int population);
     ~tribe();
 
-    void move(int new_x, int new_y);
+    void move(int dx, int dy);
     //void update_technology(std::vector<float> new_technology);
 
     //getters

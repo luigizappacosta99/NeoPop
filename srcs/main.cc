@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <ctime>
+#include <random>
 #include "../include/perlin.h"
 #include "../include/map.h"
 #include "../include/pixel.h"
@@ -15,33 +17,48 @@ enum class biomes {
 
 int main(int argc, char const *argv[])
 {
-    //generate a random 50x50 map and cout fertility
-    int map_width = 50;
-    int map_height = 50;
+    srand(time(0));
+
+    //generate a random W x H map and cout fertility
+    if (argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " <width> <height>\n";
+        return 1;
+    }
+    int map_width  = std::atoi(argv[1]);
+    int map_height = std::atoi(argv[2]);
     map m(map_width, map_height);
     m.generateFromPerlinNoise();
-    //generate a tribe and plot it on the map
-    tribe t(2, 2, 100);
-    //print altitude in a txt file
-    std::ofstream outfile("altitude.txt");
-    for (int i = 0; i < map_height; i++) {
-        for (int j = 0; j < map_width; j++) {
-            outfile << m.getPixel(j, i)->getHeight() << " ";
-        }
-        outfile << std::endl;
-    }
-    outfile.close();
-    //print fertility in a txt file
+
+    //print altitude, humidity and vegetation in a txt file
+    std::ofstream altitude_file("altitude.txt");
+    m.printHeight(altitude_file);
+    altitude_file.close();
     std::ofstream fertility_file("fertility.txt");
-    for (int i = 0; i < map_height; i++) {
-        for (int j = 0; j < map_width; j++) {
-            fertility_file << m.getPixel(j, i)->getFertility() << " ";
-        }
-        fertility_file << std::endl;
-    }
+    m.printFertility(fertility_file);
     fertility_file.close();
-    //print tribe info
-    std::cout << "Tribe position: (" << t.getX() << ", " << t.getY() << ")" << std::endl;
-    std::cout << "Tribe population: " << t.getPopulation() << std::endl;
+
+    //generate a tribe and plot it on the map
+    int tribe_x = rand() % map_width;
+    int tribe_y = rand() % map_height;
+    while(!(m.getPixel(tribe_x,tribe_y)->isPassable())){
+        tribe_x = rand() % map_width;
+        tribe_y = rand() % map_height;
+    }
+    tribe t(tribe_x, tribe_y, 100);
+
+    //epochs cycle
+    const int epochs = 10;
+    std::ofstream tribe_file("tribe.txt");
+    for(int e = 0; e<epochs; ++e){
+        int dx = rand() % 3 - 1;
+        int dy = rand() % 3;
+        while(!(m.getPixel(t.getX()+dx,t.getY()+dy)->isPassable())){
+            dx = rand() % 3 - 1;
+            dy = rand() % 3;
+        }
+        t.move(dx,dy);
+        tribe_file <<t.getX()<<' '<<t.getY()<<std::endl;
+    }
+    tribe_file.close();
     return 0;
 }

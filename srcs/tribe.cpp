@@ -4,9 +4,9 @@ tribe::tribe(int x, int y, int population) : x(x), y(y), population(population) 
 
 tribe::~tribe() {}
 
-void tribe::move(int new_x, int new_y) {
-    x = new_x;
-    y = new_y;
+void tribe::move(int dx, int dy) {
+    x += dx;
+    y += dy;
 }
 
 int tribe::getX() const {

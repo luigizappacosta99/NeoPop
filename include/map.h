@@ -23,13 +23,11 @@ public:
 
     //prints
     //void printMap();
-    void printHeight();
-    void printBiomes();
-    void printFertility();
-    void printHumidity();
-    void printTemperature();
-    void printAnimalPopulation();
-    void printMegafaunaPopulation();
+    void printHeight(std::ostream& os);
+    void printFertility(std::ostream& os);
+    void printUsage(std::ostream& os);
+    void printAnimalPopulation(std::ostream& os);
+    void printMegafaunaPopulation(std::ostream& os);
 };
 
 #endif
