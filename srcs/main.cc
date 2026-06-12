@@ -2,18 +2,7 @@
 #include <fstream>
 #include <ctime>
 #include <random>
-#include "../include/perlin.h"
-#include "../include/map.h"
-#include "../include/pixel.h"
-#include "../include/tribe.h"
-
-enum class biomes {
-    FOREST,
-    DESERT,
-    PLAINS,
-    MOUNTAIN,
-    OCEAN
-};
+#include "includes.h"
 
 int main(int argc, char const *argv[])
 {

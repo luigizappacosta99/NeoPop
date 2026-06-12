@@ -1,4 +1,4 @@
-#include "../include/pixel.h"
+#include "pixel.h"
 
 pixel::pixel() : x(0), y(0), h(0), 
                  is_passable(true), 

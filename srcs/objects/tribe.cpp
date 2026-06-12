@@ -1,4 +1,4 @@
-#include "../include/tribe.h"
+#include "tribe.h"
 
 tribe::tribe(int x, int y, int population) : x(x), y(y), population(population) {}
 

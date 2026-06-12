@@ -2,16 +2,10 @@
 #include <cmath>
 #include <cstdlib>
 
-#include "../include/perlin.h"
+#include "perlin.h"
 
-int numX = 512,
-    numY = 512,
-    numOctaves = 4;
-double persistence = 0.5;
-
-int primeIndex = 0;
-
-int primes[10][3] = {
+double Noise(int i, int x, int y, int seed) {
+  int primes[10][3] = {
   { 995615039, 600173719, 701464987 },
   { 831731269, 162318869, 136250887 },
   { 174329291, 946737083, 245679977 },
@@ -23,8 +17,6 @@ int primes[10][3] = {
   { 531736441, 939683957, 810651871 },
   { 997169939, 842027887, 423882827 }
 };
-
-double Noise(int i, int x, int y, int seed) {
   int n = x + y * seed;
   n = (n << 13) ^ n;
   int a = primes[i][0], b = primes[i][1], c = primes[i][2];
@@ -62,13 +54,16 @@ double InterpolatedNoise(int i, double x, double y, int seed) {
   return Interpolate(i1, i2, fractional_Y);
 }
 
-double ValueNoise_2D_perlin(double x, double y, int numOctaves, double persistence, int seed) {
+double ValueNoise_2D_perlin(double x, double y, int numOctaves, int seed) {
+ 
   double total = 0.0;
   double frequency = 0.02;
   double amplitude = 2.0;
   double amplitudeSum = 0.0;
-
+  double persistence = 0.5;
+  
   for (int i = 0; i < numOctaves; ++i) {
+    int primeIndex = 0;
     int idx = (primeIndex + i) % 10;
     total += InterpolatedNoise(idx, x * frequency, y * frequency, seed) * amplitude;
     amplitudeSum += amplitude;

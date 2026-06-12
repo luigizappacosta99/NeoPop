@@ -1,7 +1,8 @@
 #include <iostream>
 #include <ctime>
-#include "../include/map.h"
-#include "../include/perlin.h"
+#include "map.h"
+#include "../functions/perlin.h"
+#include "../functions/png.h"
 
 int seed = std::time(nullptr);
 
@@ -26,9 +27,9 @@ void map::generateFromPerlinNoise() {
     //generate height from perlin noise and fill the map
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            int h = ValueNoise_2D_perlin(j, i, 18, 0.5, seed) * 6000 + 100;
+            int h = ValueNoise_2D_perlin(j, i, 33, seed) * 6000 + 100;
             bool is_passable = h < 800;
-            double fertility = ValueNoise_2D_perlin(j+100, i, 7, 0.5, seed+23);
+            double fertility = ValueNoise_2D_perlin(j+100, i, 7, seed+23);
             //TO STUDY: FERTILITY
             //function that goies from 0 to 1, -1 for unpassable terrain
             //double fertility = humidity * std::abs(25-temperature) / (0.001*height*height);
